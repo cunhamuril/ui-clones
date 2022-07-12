@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MovieTile extends StatelessWidget {
-  final String imagePath;
+  final String imageUrl;
   final String title;
   final double rate;
 
   const MovieTile({
     Key? key,
-    required this.imagePath,
+    required this.imageUrl,
     required this.title,
     required this.rate,
   }) : super(key: key);
@@ -20,9 +20,12 @@ class MovieTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(32),
-            child: imagePath.contains('http')
-                ? Image.network(imagePath, width: 210)
-                : Image.asset(imagePath, width: 210),
+            child: Image.network(
+              imageUrl,
+              width: 210,
+              height: 310,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 20),
           Column(

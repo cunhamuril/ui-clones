@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
         CategoriesList(),
         SizedBox(height: 48),
         GenresTags(),
-        SizedBox(height: 48),
+        SizedBox(height: 72),
         Content()
       ]),
     );
@@ -98,20 +98,27 @@ class Content extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: const [
           MovieTile(
-            imagePath: 'lib/assets/taxi-driver-cover.jpg',
+            imageUrl:
+                'https://http2.mlstatic.com/D_NQ_NP_971060-MLB26550280154_122017-O.jpg',
             title: 'Taxi Driver',
             rate: 8.2,
           ),
           MovieTile(
-            imagePath:
+            imageUrl:
                 'https://img.elo7.com.br/product/original/268A58D/big-poster-filme-pulp-fiction-lo001-tamanho-90x60-cm-presente-geek.jpg',
             title: 'Pulp Fiction',
             rate: 8.9,
           ),
           MovieTile(
-            imagePath:
+            imageUrl:
                 'https://br.web.img2.acsta.net/medias/nmedia/18/91/08/82/20128877.JPG',
             title: 'Matrix',
+            rate: 7.5,
+          ),
+          MovieTile(
+            imageUrl:
+                'https://i.pinimg.com/originals/2a/d3/b5/2ad3b5c9c290fabca92f11fbf52594e4.jpg',
+            title: 'Se7ven',
             rate: 7.5,
           ),
         ],
