@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/components/category_tile.dart';
 import 'package:movie_app/components/genre_tile.dart';
 import 'package:movie_app/components/movie_tile.dart';
+import 'package:movie_app/models/movie.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,20 +24,20 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: Column(children: const [
-        SizedBox(height: 48),
-        CategoriesList(),
-        SizedBox(height: 48),
-        GenresTags(),
-        SizedBox(height: 72),
-        Content()
+      body: Column(children: [
+        const SizedBox(height: 48),
+        const _CategoriesList(),
+        const SizedBox(height: 48),
+        const _GenresTags(),
+        const SizedBox(height: 72),
+        _Content()
       ]),
     );
   }
 }
 
-class CategoriesList extends StatelessWidget {
-  const CategoriesList({
+class _CategoriesList extends StatelessWidget {
+  const _CategoriesList({
     Key? key,
   }) : super(key: key);
 
@@ -48,7 +49,7 @@ class CategoriesList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: const [
           CategoryTile(
-            categoryName: 'In Theater',
+            categoryName: 'Coming soon',
             isActive: true,
           ),
           CategoryTile(
@@ -56,7 +57,7 @@ class CategoriesList extends StatelessWidget {
             isActive: false,
           ),
           CategoryTile(
-            categoryName: 'Coming soon',
+            categoryName: 'In Theater',
             isActive: false,
           ),
         ],
@@ -65,8 +66,8 @@ class CategoriesList extends StatelessWidget {
   }
 }
 
-class GenresTags extends StatelessWidget {
-  const GenresTags({
+class _GenresTags extends StatelessWidget {
+  const _GenresTags({
     Key? key,
   }) : super(key: key);
 
@@ -88,40 +89,61 @@ class GenresTags extends StatelessWidget {
   }
 }
 
-class Content extends StatelessWidget {
-  const Content({Key? key}) : super(key: key);
+class _Content extends StatelessWidget {
+  final List<Movie> movies = [];
+
+  _Content({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    movies.add(
+      Movie(
+        poster:
+            'https://http2.mlstatic.com/D_NQ_NP_971060-MLB26550280154_122017-O.jpg',
+        title: 'Taxi Driver',
+        rate: 8.2,
+      ),
+    );
+    movies.add(
+      Movie(
+        poster:
+            'https://img.elo7.com.br/product/original/268A58D/big-poster-filme-pulp-fiction-lo001-tamanho-90x60-cm-presente-geek.jpg',
+        title: 'Pulp Fiction',
+        rate: 8.9,
+      ),
+    );
+    movies.add(
+      Movie(
+        poster:
+            'https://br.web.img2.acsta.net/medias/nmedia/18/91/08/82/20128877.JPG',
+        title: 'Matrix',
+        rate: 7.5,
+      ),
+    );
+    movies.add(
+      Movie(
+        poster:
+            'https://i.pinimg.com/originals/2a/d3/b5/2ad3b5c9c290fabca92f11fbf52594e4.jpg',
+        title: 'Se7ven',
+        rate: 7.5,
+      ),
+    );
+
     return Expanded(
-      child: ListView(
+      child: ListView.builder(
+        itemCount: movies.length,
         scrollDirection: Axis.horizontal,
-        children: const [
-          MovieTile(
-            imageUrl:
-                'https://http2.mlstatic.com/D_NQ_NP_971060-MLB26550280154_122017-O.jpg',
-            title: 'Taxi Driver',
-            rate: 8.2,
-          ),
-          MovieTile(
-            imageUrl:
-                'https://img.elo7.com.br/product/original/268A58D/big-poster-filme-pulp-fiction-lo001-tamanho-90x60-cm-presente-geek.jpg',
-            title: 'Pulp Fiction',
-            rate: 8.9,
-          ),
-          MovieTile(
-            imageUrl:
-                'https://br.web.img2.acsta.net/medias/nmedia/18/91/08/82/20128877.JPG',
-            title: 'Matrix',
-            rate: 7.5,
-          ),
-          MovieTile(
-            imageUrl:
-                'https://i.pinimg.com/originals/2a/d3/b5/2ad3b5c9c290fabca92f11fbf52594e4.jpg',
-            title: 'Se7ven',
-            rate: 7.5,
-          ),
-        ],
+        itemBuilder: (context, index) {
+          final Movie movie = movies[index];
+
+          return MovieTile(
+            movie: Movie(
+              title: movie.title,
+              poster: movie.poster,
+              rate: movie.rate,
+            ),
+          );
+        },
       ),
     );
   }

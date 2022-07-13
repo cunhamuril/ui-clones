@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/models/movie.dart';
 
 class MovieTile extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final double rate;
+  final Movie movie;
 
-  const MovieTile({
-    Key? key,
-    required this.imageUrl,
-    required this.title,
-    required this.rate,
-  }) : super(key: key);
+  const MovieTile({Key? key, required this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 72),
+      padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(32),
             child: Image.network(
-              imageUrl,
+              movie.poster,
               width: 210,
               height: 310,
               fit: BoxFit.cover,
@@ -31,7 +25,7 @@ class MovieTile extends StatelessWidget {
           Column(
             children: [
               Text(
-                title,
+                movie.title,
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
@@ -48,7 +42,7 @@ class MovieTile extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    rate.toString(),
+                    movie.rate.toString(),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
