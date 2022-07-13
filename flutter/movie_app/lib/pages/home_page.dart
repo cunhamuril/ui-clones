@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/components/category_tile.dart';
 import 'package:movie_app/components/genre_tile.dart';
 import 'package:movie_app/components/movie_tile.dart';
+import 'package:movie_app/http/clients/movie_client.dart';
 import 'package:movie_app/models/movie.dart';
 
 class HomePage extends StatelessWidget {
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
         const _CategoriesList(),
         const SizedBox(height: 48),
         const _GenresTags(),
-        const SizedBox(height: 72),
+        const SizedBox(height: 48),
         _Content()
       ]),
     );
@@ -49,7 +50,7 @@ class _CategoriesList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: const [
           CategoryTile(
-            categoryName: 'Coming soon',
+            categoryName: 'Upcoming',
             isActive: true,
           ),
           CategoryTile(
@@ -90,59 +91,47 @@ class _GenresTags extends StatelessWidget {
 }
 
 class _Content extends StatelessWidget {
-  final List<Movie> movies = [];
+  final MovieClient movieClient = MovieClient();
 
   _Content({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    movies.add(
-      Movie(
-        poster:
-            'https://http2.mlstatic.com/D_NQ_NP_971060-MLB26550280154_122017-O.jpg',
-        title: 'Taxi Driver',
-        rate: 8.2,
-      ),
-    );
-    movies.add(
-      Movie(
-        poster:
-            'https://img.elo7.com.br/product/original/268A58D/big-poster-filme-pulp-fiction-lo001-tamanho-90x60-cm-presente-geek.jpg',
-        title: 'Pulp Fiction',
-        rate: 8.9,
-      ),
-    );
-    movies.add(
-      Movie(
-        poster:
-            'https://br.web.img2.acsta.net/medias/nmedia/18/91/08/82/20128877.JPG',
-        title: 'Matrix',
-        rate: 7.5,
-      ),
-    );
-    movies.add(
-      Movie(
-        poster:
-            'https://i.pinimg.com/originals/2a/d3/b5/2ad3b5c9c290fabca92f11fbf52594e4.jpg',
-        title: 'Se7ven',
-        rate: 7.5,
-      ),
-    );
-
     return Expanded(
-      child: ListView.builder(
-        itemCount: movies.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          final Movie movie = movies[index];
+      child: FutureBuilder<List<Movie>>(
+        future: movieClient.findUpcomingMovies(),
+        builder: (context, snapshot) {
+          final List<Movie> movies = snapshot.data ?? [];
 
-          return MovieTile(
-            movie: Movie(
-              title: movie.title,
-              poster: movie.poster,
-              rate: movie.rate,
-            ),
-          );
+          if (!snapshot.hasData) {
+            return const Text('Unknown error');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            return ListView.builder(
+              itemCount: movies.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                final Movie movie = movies[index];
+
+                return MovieTile(
+                  movie: Movie(
+                    title: movie.title,
+                    poster: movie.poster,
+                    rate: movie.rate,
+                  ),
+                );
+              },
+            );
+          }
+
+          return const Text('Unknown error');
         },
       ),
     );

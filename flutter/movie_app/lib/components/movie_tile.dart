@@ -24,14 +24,19 @@ class MovieTile extends StatelessWidget {
           const SizedBox(height: 20),
           Column(
             children: [
-              Text(
-                movie.title,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: Theme.of(context).textTheme.bodyText1?.color,
+              Container(
+                width: 210,
+                child: Text(
+                  movie.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).textTheme.bodyText1?.color,
+                  ),
                 ),
               ),
+              const SizedBox(height: 4),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

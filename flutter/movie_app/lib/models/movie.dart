@@ -3,7 +3,7 @@ import 'package:movie_app/config/api.dart';
 class Movie {
   final String title;
   final String poster;
-  final double rate;
+  final num rate;
 
   Movie({
     required this.title,
@@ -14,7 +14,7 @@ class Movie {
   Movie.fromJson(Map<String, dynamic> json)
       : title = json['title'],
         poster = API_IMAGE_BASE_URL + json['poster_path'],
-        rate = double.tryParse(json['vote_average'])!;
+        rate = json['vote_average'] ?? 1.1;
 
   @override
   String toString() {
