@@ -13,10 +13,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   static final List<Category> categories = [
-    Category(value: 'upcoming', label: 'Upcoming'),
-    Category(value: 'popular', label: 'Popular'),
-    Category(value: 'now_playing', label: 'Now Playing'),
-    Category(value: 'top_rated', label: 'Top Rated'),
+    Category(value: 'upcoming', label: 'Em breve'),
+    Category(value: 'popular', label: 'Populares'),
+    Category(value: 'now_playing', label: 'Em cartaz'),
+    Category(value: 'top_rated', label: 'Melhores avaliados'),
   ];
 
   String selectedCategory = categories[0].value;

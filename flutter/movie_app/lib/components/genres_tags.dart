@@ -15,9 +15,9 @@ class GenresTags extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.only(left: 32),
         children: const [
-          GenreTile(genreName: 'Action'),
+          GenreTile(genreName: 'Ação'),
           GenreTile(genreName: 'Crime'),
-          GenreTile(genreName: 'Comedy'),
+          GenreTile(genreName: 'Comédia'),
           GenreTile(genreName: 'Drama'),
         ],
       ),
