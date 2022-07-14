@@ -8,49 +8,54 @@ import 'package:movie_app/models/genre.dart';
 import 'package:movie_app/models/movie.dart';
 
 class MovieClient {
-  Future<List<Movie>> findMovies(Category category, Genre? genre) async {
-    Response response;
+  Future<List<Movie>> findMoviesByCategory(Category category) async {
+    Response response = await client.get(
+      Uri.parse(
+        '$API_BASE_URL/movie/${category.value}?api_key=$API_KEY&language=pt-BR',
+      ),
+    );
 
-    if (genre != null && genre.id != 0) {
-      String sortValue = '';
+    List<Movie> movies = _toMoviesList(response);
 
-      switch (category.value) {
-        case 'upcoming':
-          sortValue = 'release_date.desc';
-          break;
+    return movies;
+  }
 
-        case 'popular':
-          sortValue = 'popularity.desc';
-          break;
+  Future<List<Movie>> findMoviesByGenre(
+    Genre genre,
+    Category? category,
+  ) async {
+    String sortValue = '';
 
-        case 'now_playing':
-          sortValue = 'popularity.desc';
-          break;
+    switch (category?.value) {
+      case 'upcoming':
+        sortValue = 'release_date.desc';
+        break;
 
-        case 'top_rated':
-          sortValue = 'vote_count.desc';
-          break;
+      case 'popular':
+        sortValue = 'popularity.desc';
+        break;
 
-        default:
-          sortValue = '';
-      }
+      case 'now_playing':
+        sortValue = 'popularity.desc';
+        break;
 
-      response = await client.get(
-        Uri.parse(
-          '$API_BASE_URL/discover/movie'
-          '?api_key=$API_KEY'
-          '&language=pt-BR'
-          '&with_genres=${genre.id}'
-          '&sort_by=$sortValue',
-        ),
-      );
-    } else {
-      response = await client.get(
-        Uri.parse(
-          '$API_BASE_URL/movie/${category.value}?api_key=$API_KEY&language=pt-BR',
-        ),
-      );
+      case 'top_rated':
+        sortValue = 'vote_count.desc';
+        break;
+
+      default:
+        sortValue = '';
     }
+
+    Response response = await client.get(
+      Uri.parse(
+        '$API_BASE_URL/discover/movie'
+        '?api_key=$API_KEY'
+        '&language=pt-BR'
+        '&with_genres=${genre.id}'
+        '&sort_by=$sortValue',
+      ),
+    );
 
     List<Movie> movies = _toMoviesList(response);
 

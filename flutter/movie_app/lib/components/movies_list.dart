@@ -21,7 +21,9 @@ class MoviesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: FutureBuilder<List<Movie>>(
-        future: movieClient.findMovies(category, genre),
+        future: genre.id == 0
+            ? movieClient.findMoviesByCategory(category)
+            : movieClient.findMoviesByGenre(genre, category),
         builder: (context, snapshot) {
           final List<Movie> movies = snapshot.data ?? [];
 
