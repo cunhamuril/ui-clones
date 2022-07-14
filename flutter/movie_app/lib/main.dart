@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/http/clients/genre_client.dart';
 import 'package:movie_app/pages/home_page.dart';
 import 'package:movie_app/theme/colors.dart';
 

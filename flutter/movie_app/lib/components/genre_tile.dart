@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/models/genre.dart';
 
 class GenreTile extends StatelessWidget {
-  final String genreName;
+  final Genre genre;
 
   const GenreTile({
     Key? key,
-    required this.genreName,
+    required this.genre,
   }) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class GenreTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         child: Text(
-          genreName,
+          genre.name,
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,

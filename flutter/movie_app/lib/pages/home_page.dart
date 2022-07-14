@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           onTap: _handleSelectCategory,
         ),
         const SizedBox(height: 48),
-        const GenresTags(),
+        GenresTags(),
         const SizedBox(height: 48),
         MoviesList(category: selectedCategory)
       ]),
