@@ -20,8 +20,32 @@ class _HomePageState extends State<HomePage> {
     Category(value: 'top_rated', label: 'Melhores avaliados'),
   ];
 
+  // Get from TMDB API
+  static final List<Genre> genres = [
+    Genre(id: 0, name: 'Todos'),
+    Genre(id: 28, name: "Ação"),
+    Genre(id: 12, name: "Aventura"),
+    Genre(id: 16, name: "Animação"),
+    Genre(id: 35, name: "Comédia"),
+    Genre(id: 80, name: "Crime"),
+    Genre(id: 99, name: "Documentário"),
+    Genre(id: 18, name: "Drama"),
+    Genre(id: 10751, name: "Família"),
+    Genre(id: 14, name: "Fantasia"),
+    Genre(id: 36, name: "História"),
+    Genre(id: 27, name: "Terror"),
+    Genre(id: 10402, name: "Música"),
+    Genre(id: 9648, name: "Mistério"),
+    Genre(id: 10749, name: "Romance"),
+    Genre(id: 878, name: "Ficção científica"),
+    Genre(id: 10770, name: "Cinema TV"),
+    Genre(id: 53, name: "Thriller"),
+    Genre(id: 10752, name: "Guerra"),
+    Genre(id: 37, name: "Faroeste")
+  ];
+
   Category selectedCategory = categories[0];
-  Genre selectedGenre = Genre(id: 0, name: 'Todos');
+  Genre selectedGenre = genres[0];
 
   _handleSelectCategory(Category category) {
     setState(() {
@@ -52,24 +76,27 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Column(children: [
-        const SizedBox(height: 48),
-        CategoriesList(
-          categories: categories,
-          selectedCategory: selectedCategory,
-          onTap: _handleSelectCategory,
-        ),
-        const SizedBox(height: 48),
-        GenresTags(
-          selectedGenre: selectedGenre,
-          onTap: _handleSelectGenre,
-        ),
-        const SizedBox(height: 48),
-        MoviesList(
-          category: selectedCategory,
-          genre: selectedGenre,
-        )
-      ]),
+      body: Column(
+        children: [
+          const SizedBox(height: 48),
+          CategoriesList(
+            categories: categories,
+            selectedCategory: selectedCategory,
+            onTap: _handleSelectCategory,
+          ),
+          const SizedBox(height: 48),
+          GenresTags(
+            selectedGenre: selectedGenre,
+            onTap: _handleSelectGenre,
+            genres: genres,
+          ),
+          const SizedBox(height: 48),
+          MoviesList(
+            category: selectedCategory,
+            genre: selectedGenre,
+          )
+        ],
+      ),
     );
   }
 }
