@@ -5,12 +5,14 @@ class CategoryTile extends StatelessWidget {
   final Category category;
   final bool isActive;
   final VoidCallback onTap;
+  final bool isLast;
 
   const CategoryTile({
     Key? key,
     required this.category,
     required this.isActive,
     required this.onTap,
+    this.isLast = false,
   }) : super(key: key);
 
   @override
@@ -18,7 +20,7 @@ class CategoryTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(left: 32.0),
+        padding: EdgeInsets.only(left: 32.0, right: isLast ? 32.0 : 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
