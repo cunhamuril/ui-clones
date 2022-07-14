@@ -14,12 +14,19 @@ class MovieTile extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(32),
-            child: Image.network(
-              movie.poster ?? '',
-              width: 210,
-              height: 310,
-              fit: BoxFit.cover,
-            ),
+            child: movie.poster != null
+                ? Image.network(
+                    movie.poster!,
+                    width: 210,
+                    height: 310,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    height: 310,
+                    width: 210,
+                    decoration:
+                        BoxDecoration(color: Colors.black54.withOpacity(0.3)),
+                  ),
           ),
           const SizedBox(height: 20),
           Column(

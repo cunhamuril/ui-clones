@@ -26,7 +26,7 @@ class GenreTile extends StatelessWidget {
             vertical: 8,
           ),
           decoration: BoxDecoration(
-            color: isActive ? Colors.grey.withOpacity(0.2) : null,
+            color: isActive ? Colors.grey.withOpacity(0.3) : null,
             border: Border.all(
               color: Theme.of(context).dividerColor.withOpacity(0.3),
               width: 1.5,

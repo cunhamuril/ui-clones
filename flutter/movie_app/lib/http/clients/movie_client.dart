@@ -53,6 +53,8 @@ class MovieClient {
         '?api_key=$API_KEY'
         '&language=pt-BR'
         '&with_genres=${genre.id}'
+        '&vote_average.gte=5'
+        '&vote_count.gte=300'
         '&sort_by=$sortValue',
       ),
     );
