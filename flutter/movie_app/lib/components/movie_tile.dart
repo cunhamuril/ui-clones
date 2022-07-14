@@ -15,7 +15,7 @@ class MovieTile extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(32),
             child: Image.network(
-              movie.poster,
+              movie.poster ?? '',
               width: 210,
               height: 310,
               fit: BoxFit.cover,
@@ -24,7 +24,7 @@ class MovieTile extends StatelessWidget {
           const SizedBox(height: 20),
           Column(
             children: [
-              Container(
+              SizedBox(
                 width: 210,
                 child: Text(
                   movie.title,

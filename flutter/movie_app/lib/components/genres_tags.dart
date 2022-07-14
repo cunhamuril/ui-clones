@@ -4,11 +4,17 @@ import 'package:movie_app/models/genre.dart';
 
 import 'genre_tile.dart';
 
+typedef SelectGenreCallback = Function(Genre genre);
+
 class GenresTags extends StatelessWidget {
+  final Genre selectedGenre;
   final GenreClient genreClient = GenreClient();
+  final SelectGenreCallback onTap;
 
   GenresTags({
     Key? key,
+    required this.selectedGenre,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -44,6 +50,8 @@ class GenresTags extends StatelessWidget {
 
                 return GenreTile(
                   genre: Genre(id: genre.id, name: genre.name),
+                  isActive: selectedGenre.id == genre.id,
+                  onTap: () => onTap(genre),
                 );
               },
             ),

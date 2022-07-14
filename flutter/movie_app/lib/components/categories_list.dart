@@ -4,11 +4,11 @@ import '../models/category.dart';
 
 import 'category_tile.dart';
 
-typedef SelectCategoryCallback = Function(String categoryValue);
+typedef SelectCategoryCallback = Function(Category category);
 
 class CategoriesList extends StatelessWidget {
   final List<Category> categories;
-  final String selectedCategory;
+  final Category selectedCategory;
   final SelectCategoryCallback onTap;
 
   const CategoriesList({
@@ -30,8 +30,8 @@ class CategoriesList extends StatelessWidget {
 
           return CategoryTile(
             category: category,
-            isActive: category.value == selectedCategory,
-            onTap: () => onTap(category.value),
+            isActive: category == selectedCategory,
+            onTap: () => onTap(category),
             isLast: index == categories.length - 1,
           );
         },

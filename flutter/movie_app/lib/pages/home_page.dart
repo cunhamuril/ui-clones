@@ -3,6 +3,7 @@ import 'package:movie_app/components/categories_list.dart';
 import 'package:movie_app/components/genres_tags.dart';
 import 'package:movie_app/components/movies_list.dart';
 import 'package:movie_app/models/category.dart';
+import 'package:movie_app/models/genre.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,11 +20,18 @@ class _HomePageState extends State<HomePage> {
     Category(value: 'top_rated', label: 'Melhores avaliados'),
   ];
 
-  String selectedCategory = categories[0].value;
+  Category selectedCategory = categories[0];
+  Genre selectedGenre = Genre(id: 0, name: 'Todos');
 
-  _handleSelectCategory(String categoryValue) {
+  _handleSelectCategory(Category category) {
     setState(() {
-      selectedCategory = categoryValue;
+      selectedCategory = category;
+    });
+  }
+
+  _handleSelectGenre(Genre genre) {
+    setState(() {
+      selectedGenre = genre;
     });
   }
 
@@ -52,9 +60,15 @@ class _HomePageState extends State<HomePage> {
           onTap: _handleSelectCategory,
         ),
         const SizedBox(height: 48),
-        GenresTags(),
+        GenresTags(
+          selectedGenre: selectedGenre,
+          onTap: _handleSelectGenre,
+        ),
         const SizedBox(height: 48),
-        MoviesList(category: selectedCategory)
+        MoviesList(
+          category: selectedCategory,
+          genre: selectedGenre,
+        )
       ]),
     );
   }

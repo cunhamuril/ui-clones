@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/components/movie_tile.dart';
 import 'package:movie_app/http/clients/movie_client.dart';
+import 'package:movie_app/models/category.dart';
+import 'package:movie_app/models/genre.dart';
 import 'package:movie_app/models/movie.dart';
 
 class MoviesList extends StatelessWidget {
   final MovieClient movieClient = MovieClient();
 
-  final String category;
+  final Category category;
+  final Genre genre;
 
-  MoviesList({Key? key, required this.category}) : super(key: key);
+  MoviesList({
+    Key? key,
+    required this.category,
+    required this.genre,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: FutureBuilder<List<Movie>>(
-        future: movieClient.findMovies(category),
+        future: movieClient.findMovies(category, genre),
         builder: (context, snapshot) {
           final List<Movie> movies = snapshot.data ?? [];
 
